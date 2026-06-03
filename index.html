@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sarthak Mehta - Cyber Security Portfolio</title>
+  <style>
+    :root {
+      --color-bg-light: #f9f9f9;
+      --color-bg-dark: #0d1117;
+      --color-text-light: #24292e;
+      --color-text-dark: #c9d1d9;
+      --color-primary: #39ff14;
+      --color-primary-dark: #2ecc71;
+      --font-mono: 'Courier New', Courier, monospace;
+      --transition-duration: 0.3s;
+    }
+
+    /* RESET */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--color-bg-light);
+      color: var(--color-text-light);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      transition: background-color var(--transition-duration), color var(--transition-duration);
+      min-height: 100vh;
+      scroll-behavior: smooth;
+    }
+
+    body.dark {
+      background-color: var(--color-bg-dark);
+      color: var(--color-text-dark);
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+      background-color: var(--color-bg-dark);
+    }
+
+    header h1 {
+      margin: 0;
+      color: var(--color-primary);
+      font-weight: bold;
+      font-size: 1.5rem;
+      font-family: var(--font-mono);
+    }
+
+    nav {
+      display: flex;
+      gap: 16px;
+    }
+
+    nav a {
+      color: var(--color-text-dark);
+      text-decoration: none;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      letter-spacing: 0.05em;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    body.dark nav a {
+      color: var(--color-text-dark);
+    }
+
+    nav a:hover,
+    nav a:focus {
+      background-color: var(--color-primary);
+      color: #000;
+      outline: none;
+      cursor: pointer;
+    }
+
+    #darkModeToggle {
+      background: none;
+      border: 2px solid var(--color-primary);
+      border-radius: 5px;
+      color: var(--color-primary);
+      font-family: var(--font-mono);
+      font-weight: bold;
+      cursor: pointer;
+      padding: 5px 10px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    #darkModeToggle:hover,
+    #darkModeToggle:focus {
+      background-color: var(--color-primary);
+      color: black;
+      outline: none;
+    }
+
+    /* LAYOUT */
+    main {
+      max-width: 960px;
+      margin: 70px auto 40px;
+      padding: 0 20px 40px;
+    }
+
+    section {
+      margin-bottom: 60px;
+    }
+
+    h2 {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 2rem;
+      border-bottom: 2px solid var(--color-primary);
+      padding-bottom: 8px;
+      margin-bottom: 24px;
+      color: var(--color-primary);
+    }
+
+    /* HERO */
+    #hero {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-pic {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 3px solid var(--color-primary);
+      object-fit: cover;
+      filter: drop-shadow(0 4px 6px rgba(0, 255, 50, 0.4));
+      transition: transform 0.3s ease;
+      cursor: default;
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.05);
+    }
+
+    .intro-text {
+      max-width: 600px;
+      font-size: 1.2rem;
+      line-height: 1.5;
+      font-family: var(--font-mono);
+      color: var(--color-primary);
+    }
+
+    .intro-text a {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+
+    .btn-download {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: var(--color-primary);
+      color: black;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-download:hover,
+    .btn-download:focus {
+      background-color: var(--color-primary-dark);
+      outline: none;
+      color: black;
+    }
+
+    /* TYPING ANIMATION */
+    #typingIntro {
+      font-family: var(--font-mono);
+      margin-top: 10px;
+      font-size: 1.3rem;
+      color: var(--color-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid var(--color-primary);
+      animation: blink-caret 0.8s step-end infinite;
+      min-height: 1.6rem;
+    }
+
+    @keyframes blink-caret {
+      0%, 100% { border-color: transparent; }
+      50% { border-color: var(--color-primary); }
+    }
+
+    /* PROJECTS FILTER */
+    #project-filters {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    #project-filters button {
+      background: none;
+      border: 2px solid var(--color-primary);
+      color: var(--color-primary);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      padding: 7px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    #project-filters button.active,
+    #project-filters button:hover,
+    #project-filters button:focus {
+      background-color: var(--color-primary);
+      color: black;
+      outline: none;
+    }
+
+    /* PROJECTS GRID */
+    #projectsGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background-color: var(--bg-light);
+      border-radius: 12px;
+      padding: 18px;
+      font-family: var(--font-mono);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 2px 10px rgb(0 255 50 / 0.2);
+      cursor: default;
+      color: #111;
+    }
+
+    body.dark .project-card {
+      background-color: #122220;
+      color: var(--color-text-dark);
+      box-shadow: 0 3px 15px rgb(57 255 20 / 0.5);
+    }
+
+    .project-card:hover,
+    .project-card:focus {
+      background-color: var(--color-primary);
+      color: black;
+      box-shadow: 0 5px 20px var(--color-primary-dark);
+      outline: none;
+    }
+
+    .project-card h3 {
+      color: inherit;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .project-card p,
+    .project-card em {
+      margin: 0.25rem 0;
+    }
+
+    .project-card em {
+      font-style: italic;
+      opacity: 0.8;
+    }
+
+    /* GITHUB LINK SECTION */
+    #github-section {
+      margin-top: 40px;
+      font-family: var(--font-mono);
+      color: var(--color-primary);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    #github-section a {
+      color: var(--color-primary);
+      text-decoration: none;
+      border-bottom: 1px solid var(--color-primary);
+      transition: color 0.3s;
+    }
+
+    #github-section a:hover,
+    #github-section a:focus {
+      color: var(--color-primary-dark);
+      outline: none;
+    }
+
+    /* TERMINAL UI */
+    #terminal {
+      background-color: black;
+      color: var(--color-primary);
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      border-radius: 10px;
+      padding: 16px;
+      min-height: 180px;
+      overflow-y: auto;
+      box-shadow: 0 0 15px var(--color-primary);
+      user-select: text;
+      max-width: 960px;
+      margin: 30px auto 60px auto;
+    }
+
+    #terminal-output {
+      white-space: pre-wrap;
+      margin-bottom: 10px;
+      outline: none;
+      max-height: 350px;
+      overflow-y: auto;
+    }
+
+    #commandLine {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #cmdPrompt {
+      font-weight: 700;
+    }
+
+    #terminalInput {
+      background: transparent;
+      border: none;
+      color: var(--color-primary);
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      flex-grow: 1;
+      outline: none;
+      caret-color: var(--color-primary);
+      padding: 4px 8px;
+      border-bottom: 1px solid var(--color-primary);
+    }
+
+    #terminalInput::placeholder {
+      color: #39ff1440;
+    }
+
+    /* SKILLS SECTION */
+    #skills-list {
+      max-width: 700px;
+      margin: 0 auto;
+      font-family: var(--font-mono);
+      color: var(--color-primary);
+    }
+
+    .skill-bar {
+      margin-bottom: 20px;
+    }
+
+    .skill-label {
+      margin-bottom: 6px;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      background-color: #ddd;
+      border-radius: 14px;
+      overflow: hidden;
+      height: 20px;
+      box-shadow: inset 0 1px 3px #bbb;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background-color: var(--color-primary);
+      border-radius: 14px 0 0 14px;
+      text-align: right;
+      padding-right: 8px;
+      font-weight: 600;
+      line-height: 20px;
+      color: black;
+      white-space: nowrap;
+    }
+
+    body.dark .progress-bar-bg {
+      background-color: #333;
+    }
+
+    body.dark .progress-bar-fill {
+      background-color: var(--color-primary);
+      color: #000;
+      text-shadow: none;
+    }
+
+    /* CERTIFICATES GALLERY */
+    #certificates-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .certificate-card {
+      background-color: var(--bg-light);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 18px rgba(0, 255, 20, 0.3);
+      transition: box-shadow 0.4s ease;
+      user-select: text;
+      color: #222;
+      font-family: var(--font-mono);
+      text-align: center;
+    }
+
+    body.dark .certificate-card {
+      background-color: #122220;
+      color: var(--color-text-dark);
+      box-shadow: 0 5px 20px rgba(57, 255, 20, 0.6);
+    }
+
+    .certificate-card img {
+      width: 100%;
+      object-fit: cover;
+      height: 180px;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .certificate-card p {
+      margin: 12px 10px 20px;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    .certificate-card:hover,
+    .certificate-card:focus-within {
+      box-shadow: 0 8px 30px var(--color-primary);
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* DISCLAIMER */
+    #disclaimer {
+      background-color: #222;
+      color: #75ff72;
+      padding: 15px 20px;
+      font-size: 0.9rem;
+      border-left: 4px solid var(--color-primary);
+      font-family: var(--font-mono);
+      margin-bottom: 40px;
+      user-select: text;
+      border-radius: 6px;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* CONTACT FORM */
+    #contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      font-family: var(--font-mono);
+      color: var(--color-primary);
+    }
+
+    #contact-form label {
+      font-size: 1rem;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    #contact-form input,
+    #contact-form textarea {
+      width: 100%;
+      padding: 10px 16px;
+      margin-bottom: 20px;
+      background-color: var(--bg-light);
+      border: 3px solid var(--color-primary);
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 1rem;
+      color: black;
+      outline-offset: 4px;
+      transition: border-color 0.3s ease;
+    }
+
+    #contact-form input:focus,
+    #contact-form textarea:focus {
+      border-color: var(--color-primary);
+      background-color: white;
+    }
+
+    body.dark #contact-form input,
+    body.dark #contact-form textarea {
+      background-color: #122220;
+      color: var(--color-text-dark);
+      border-color: var(--color-primary);
+    }
+
+    body.dark #contact-form input:focus,
+    body.dark #contact-form textarea:focus {
+      background-color: #1b3424;
+    }
+
+    #contact-form button {
+      background-color: var(--color-primary);
+      color: black;
+      border: none;
+      padding: 14px 26px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+
+    #contact-form button:hover,
+    #contact-form button:focus {
+      background-color: var(--color-primary-dark);
+      outline: none;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      background: #111;
+      color: var(--color-primary);
+      user-select: none;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      #hero {
+        flex-direction: column;
+      }
+
+      nav {
+        gap: 10px;
+      }
+
+      nav a {
+        font-size: 0.9rem;
+      }
+
+      #projectsGrid {
+        grid-template-columns: 1fr;
+      }
+
+      #certificates-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      #skills-list ul {
+        columns: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Sarthak Mehta</h1>
+    <nav>
+      <a href="#hero">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button id="darkModeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+  </header>
+
+  <main>
+    <section id="hero" tabindex="0" aria-label="Introduction with picture and info">
+      <img class="profile-pic" src="html.png.png" alt="Sarthak Mehta photo" />
+
+      <div class="intro-text">
+        <p>Hello! I'm <strong>Sarthak Mehta</strong>, a passionate Cyber Security student and ethical hacking enthusiast currently pursuing Diplomas in Computer Science at <em>Sant Longowal Institute of Engineering and Technology</em>.</p>
+        <p>I specialize in programming, web security, and cyber defense techniques.</p>
+        <p><a href="resume.pdf" class="btn-download" download>Download Resume</a></p>
+        <div id="typingIntro" aria-live="polite" aria-atomic="true"></div>
+        <p>Contact me: <a href="mailto:sarthakmehta.wca@gmail.com">sarthakmehta.wca@gmail.com</a> | <a href="tel:+916284711230">6284711230</a></p>
+      </div>
+    </section>
+
+    <section id="about" tabindex="0" aria-labelledby="about-title">
+      <h2 id="about-title">About Me</h2>
+      <p><strong>Date of Birth:</strong> 15 May 2009</p>
+      <p><strong>Education:</strong> Completed 10th from YS School Barnala. Currently pursuing Diploma in Computer Science at Sant Longowal Institute of Engineering and Technology (2024-2027).</p>
+      <p><strong>Interests:</strong> Programming, web design, cyber security, ethical hacking, networking.</p>
+      <p><strong>Goal:</strong> To become a cybersecurity expert and contribute to safer digital spaces.</p>
+      <p><strong>Technologies & Tools:</strong> HTML, CSS, JavaScript, C, C++, Java, SQL, networking protocols, penetration testing.</p>
+      <h3>Why work with me?</h3>
+      <ul class="about-list">
+        <li>Strong foundation in computer science and cybersecurity.</li>
+        <li>Eager and persistent learner of new security concepts.</li>
+        <li>Hands-on experience through projects and practical simulations.</li>
+        <li>Ethical, detail-oriented problem solver with creative mindset.</li>
+      </ul>
+    </section>
+
+    <section id="projects" tabindex="0" aria-labelledby="projects-title">
+      <h2 id="projects-title">Projects</h2>
+      
+      <div id="project-filters" role="group" aria-label="Project category filters">
+        <button class="active" data-filter="all" aria-pressed="true">All</button>
+        <button data-filter="python" aria-pressed="false">Python</button>
+        <button data-filter="networking" aria-pressed="false">Networking</button>
+        <button data-filter="websecurity" aria-pressed="false">Web Security</button>
+      </div>
+
+      <div id="projectsGrid" role="list" aria-live="polite" aria-label="Project showcase">
+
+        <article class="project-card" data-category="python" tabindex="0" role="listitem" aria-label="Calculator project">
+          <h3>Calculator</h3>
+          <p>Basic arithmetic calculator supporting addition, subtraction, multiplication, and division.</p>
+          <em>Tech Used: C++ / Web</em>
+        </article>
+
+        <article class="project-card" data-category="networking" tabindex="0" role="listitem" aria-label="Student Management System">
+          <h3>Student Management System</h3>
+          <p>Manages student records with CRUD operations and search functionality.</p>
+          <em>Tech Used: Java, SQL</em>
+        </article>
+
+        <article class="project-card" data-category="websecurity" tabindex="0" role="listitem" aria-label="Personal Portfolio Website">
+          <h3>Personal Portfolio Website</h3>
+          <p>Responsive and interactive site to showcase skills, projects, and certificates.</p>
+          <em>Tech Used: HTML, CSS, JavaScript</em>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="github-section" tabindex="0" aria-label="GitHub Section">
+      <p>Check out my GitHub profile for more projects: <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">github.com/yourusername</a></p>
+    </section>
+
+    <section id="terminal-section" tabindex="0" aria-label="Terminal style command interface">
+      <h2>Interactive Terminal</h2>
+      <div id="terminal" tabindex="0" aria-live="polite" aria-label="Command terminal">
+        <pre id="terminal-output" aria-atomic="true" aria-live="polite"></pre>
+        <div id="commandLine">
+          <span id="cmdPrompt">&gt;&nbsp;</span>
+          <input type="text" id="terminalInput" aria-label="Enter terminal command" autofocus autocomplete="off" />
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" tabindex="0" aria-labelledby="skills-title">
+      <h2 id="skills-title">Skills</h2>
+      <div id="skills-list">
+        <div class="skill-bar" aria-label="Network skill level 80 percent">
+          <div class="skill-label">Networking</div>
+          <div class="progress-bar-bg" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
+            <div class="progress-bar-fill" style="width: 80%;">80%</div>
+          </div>
+        </div>
+
+        <div class="skill-bar" aria-label="Python skill level 70 percent">
+          <div class="skill-label">Python</div>
+          <div class="progress-bar-bg" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="70">
+            <div class="progress-bar-fill" style="width: 70%;">70%</div>
+          </div>
+        </div>
+
+        <div class="skill-bar" aria-label="Web Security skill level 60 percent">
+          <div class="skill-label">Web Security</div>
+          <div class="progress-bar-bg" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60">
+            <div class="progress-bar-fill" style="width: 60%;">60%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="certificates" tabindex="0" aria-labelledby="certificates-title">
+      <h2 id="certificates-title">Certificates & Photos</h2>
+      <div id="certificates-gallery">
+
+        <div class="certificate-card" tabindex="0" aria-label="Deloitte Cyber Job Simulation Certificate">
+          <img src="html1.png.jpeg" alt="Deloitte Cyber Job Simulation Certificate" />
+          <p>Deloitte Cyber Job Simulation - Completed Jan 8, 2026</p>
+        </div>
+
+        <div class="certificate-card" tabindex="0" aria-label="Sant Longowal Institute of Engineering and Technology">
+          <img src="html2.png.jpeg" alt="Sant Longowal Institute of Engineering and Technology" />
+          <p>Sant Longowal Institute of Engineering and Technology</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="disclaimer" tabindex="0" aria-label="Ethical disclaimer">
+      <strong>Ethical Disclaimer:</strong> This website is for educational purposes only. All cyber security activities described and demonstrated are performed in authorized and legal environments.
+    </section>
+
+    <section id="contact" tabindex="0" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contact Me</h2>
+      <form id="contact-form" aria-label="Contact form">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Your name" required autocomplete="name" />
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="your.email@example.com" required autocomplete="email" />
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    © 2024 Sarthak Mehta. All rights reserved.
+  </footer>
+
+<script>
+  // Dark Mode toggle
+  const toggleBtn = document.getElementById('darkModeToggle');
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    toggleBtn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+  });
+
+  // Typing animation for intro
+  const typingIntro = document.getElementById('typingIntro');
+  const phrases = [
+    "I'm a Cyber Security Enthusiast...",
+    "I love exploring Networking.",
+    "Currently learning Penetration Testing.",
+    "Building secure, innovative solutions.",
+    "Committed to continuous learning."
+  ];
+  let pIndex = 0, charIndex = 0, deleting = false;
+
+  function typeWriter() {
+    let current = phrases[pIndex];
+    if(!deleting){
+      typingIntro.textContent = current.substr(0,charIndex+1);
+      charIndex++;
+      if(charIndex === current.length){
+        deleting = true;
+        setTimeout(typeWriter, 1800);
+        return;
+      }
+    }else{
+      typingIntro.textContent = current.substr(0,charIndex-1);
+      charIndex--;
+      if(charIndex === 0){
+        deleting = false;
+        pIndex = (pIndex + 1) % phrases.length;
+      }
+    }
+    setTimeout(typeWriter, 80);
+  }
+  typeWriter();
+
+  // Projects filtering
+  const filterButtons = document.querySelectorAll('#project-filters button');
+  const projectsGrid = document.getElementById('projectsGrid');
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      filterButtons.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      button.classList.add('active');
+      button.setAttribute('aria-pressed', 'true');
+      const filter = button.getAttribute('data-filter');
+      const projects = projectsGrid.querySelectorAll('.project-card');
+      projects.forEach(project => {
+        if(filter === 'all' || project.dataset.category === filter){
+          project.style.display = '';
+        }else{
+          project.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Terminal UI
+  const terminal = document.getElementById('terminal');
+  const output = document.getElementById('terminal-output');
+  const input = document.getElementById('terminalInput');
+  input.focus();
+
+  const commands = {
+    help: 'Available commands:\nwhoami\nprojects\ncontact\nhelp\nclear',
+    whoami: 'Sarthak Mehta - Cybersecurity Student & Enthusiast',
+    projects: 'Check the projects section to see my works.',
+    contact: 'You can reach me via the contact form below or email: sarthakmehta.wca@gmail.com',
+  };
+
+  function printOutput(text) {
+    output.textContent += text + '\n';
+    output.scrollTop = output.scrollHeight;
+  }
+
+  input.addEventListener('keydown', e => {
+    if(e.key === 'Enter'){
+      let cmd = input.value.trim().toLowerCase();
+      printOutput('> ' + cmd);
+      if(cmd === 'clear'){
+        output.textContent = '';
+      } else if(cmd in commands){
+        printOutput(commands[cmd]);
+      } else if(cmd){
+        printOutput(`Command not found: ${cmd}. Type "help" for available commands.`);
+      }
+      input.value = '';
+      e.preventDefault();
+    }
+  });
+
+  // Contact form basic handling (fake)
+  const form = document.getElementById('contact-form');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    alert('Thank you for your message! I will respond soon.');
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
