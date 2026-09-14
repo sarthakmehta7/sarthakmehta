@@ -13,6 +13,7 @@
       --color-text-dark: #c9d1d9;
       --color-primary: #39ff14;
       --color-primary-dark: #2ecc71;
+      --bg-light: #ffffff;
       --font-mono: 'Courier New', Courier, monospace;
       --transition-duration: 0.3s;
     }
@@ -549,6 +550,29 @@
 
     /* RESPONSIVE */
     @media (max-width: 600px) {
+      header {
+        height: auto;
+        min-height: 60px;
+        flex-wrap: wrap;
+        padding: 10px;
+        gap: 8px;
+      }
+
+      header h1 {
+        font-size: 1.1rem;
+      }
+
+      nav {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      main {
+        margin-top: 125px;
+      }
+
       #hero {
         flex-direction: column;
       }
@@ -596,7 +620,7 @@
       <img class="profile-pic" src="sarthak.jpeg" alt="Sarthak Mehta photo" />
 
       <div class="intro-text">
-        <p>Hello! I'm <strong>Sarthak Mehta</strong>, a passionate Cyber Security student and ethical hacking enthusiast currently pursuing Diplomas in Computer Science at <em>Sant Longowal Institute of Engineering and Technology</em>.</p>
+        <p>Hello! I'm <strong>Sarthak Mehta</strong>, a passionate Cyber Security student and ethical hacking enthusiast currently pursuing a Diploma in Computer Science at <em>Sant Longowal Institute of Engineering and Technology</em>.</p>
         <p>I specialize in programming, web security, and cyber defense techniques.</p>
         <p><a href="sarthak.pdf" class="btn-download" download>Download Resume</a></p>
         
@@ -641,8 +665,9 @@
         </div>
       </div>
     </section>
-    <section id="Projects" tabindex="0">
-    <h2>Live Projects</h2>
+    <section id="projects" tabindex="0" aria-labelledby="projects-title">
+    <h2 id="projects-title">Live Projects</h2>
+    <div id="projectsGrid">
     <div class="project-card">
     <h3>Nexus AI Platform</h3>
     <p>Advanced AI-powered productivity and automation platform.</p>
@@ -682,6 +707,8 @@
         Visit Website
     </a>
 </div>
+    </div>
+    </section>
 
 <section id="certificates" tabindex="0">
   <h2>Certificates & Achievements</h2>
@@ -885,7 +912,7 @@
   </main>
 
   <footer>
-    © 2024 Sarthak Mehta. All rights reserved.
+    © 2026 Sarthak Mehta. All rights reserved.
   </footer>
 
 <script>
@@ -930,39 +957,42 @@
   }
   typeWriter();
 
-  // Projects filtering
+  // Projects filtering (runs only if filter controls are present)
   const filterButtons = document.querySelectorAll('#project-filters button');
   const projectsGrid = document.getElementById('projectsGrid');
-  filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      filterButtons.forEach(b => {
-        b.classList.remove('active');
-        b.setAttribute('aria-pressed', 'false');
-      });
-      button.classList.add('active');
-      button.setAttribute('aria-pressed', 'true');
-      const filter = button.getAttribute('data-filter');
-      const projects = projectsGrid.querySelectorAll('.project-card');
-      projects.forEach(project => {
-        if(filter === 'all' || project.dataset.category === filter){
-          project.style.display = '';
-        }else{
-          project.style.display = 'none';
-        }
+
+  if (filterButtons.length && projectsGrid) {
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        filterButtons.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
+
+        button.classList.add('active');
+        button.setAttribute('aria-pressed', 'true');
+
+        const filter = button.getAttribute('data-filter');
+        const projects = projectsGrid.querySelectorAll('.project-card');
+
+        projects.forEach(project => {
+          project.style.display =
+            filter === 'all' || project.dataset.category === filter ? '' : 'none';
+        });
       });
     });
-  });
+  }
 
   // Terminal UI
   const terminal = document.getElementById('terminal');
   const output = document.getElementById('terminal-output');
   const input = document.getElementById('terminalInput');
-  input.focus();
+  if (input) input.focus();
 
   const commands = {
-  help: "whoami, projects, github, linkedin, nexus, phishing, portfolio,Cosmox,internet-through-time,gameverse clear",
+  help: "whoami, projects, github, linkedin, nexus, phishguard, portfolio, cosmox, internet-through-time, gameverse, clear",
 
-  whoami: "Sarthak Mehta - Cyber Security & AI Developer",
+  whoami: "Sarthak Mehta - Cyber Security Student | AI & Web Developer",
 
   github: "https://github.com/sarthakmehta7",
 
@@ -976,7 +1006,7 @@
 
   cosmox: "https://cosmox-kn1j.onrender.com/",
 
-  internet-through-time: "https://internet-through-time.onrender.com/",
+  "internet-through-time": "https://internet-through-time.onrender.com/",
 
   gameverse: "https://gameverse-skrl.onrender.com/",
 
