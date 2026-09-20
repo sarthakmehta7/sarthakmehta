@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: sarthak-react-three-portfolio
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
